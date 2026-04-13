@@ -1,0 +1,112 @@
+# ─────────────────────────────────────────────────────────────────
+# Production overlay — extends docker-compose.yml
+#
+# Usage:
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+#
+# Prerequisites:
+#   - Set all secrets via environment variables or Docker Secrets
+#   - Place TLS certs in ./certs/ (see ES_CA_CERT path below)
+#   - Use a container registry for the api image in CI/CD
+# ─────────────────────────────────────────────────────────────────
+
+services:
+
+  # ── ES node 1 ─────────────────────────────────────────────────
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
+    container_name: es01
+    environment:
+      - node.name=es01
+      - cluster.name=${ES_CLUSTER_NAME:-prod-cluster}
+      - cluster.initial_master_nodes=es01,es02
+      - discovery.seed_hosts=es02
+      - xpack.security.enabled=true
+      - xpack.security.http.ssl.enabled=true
+      - xpack.security.http.ssl.keystore.path=/usr/share/elasticsearch/config/certs/elastic-certificates.p12
+      - xpack.security.transport.ssl.enabled=true
+      - xpack.security.transport.ssl.keystore.path=/usr/share/elasticsearch/config/certs/elastic-certificates.p12
+      - ES_JAVA_OPTS=-Xms2g -Xmx2g
+      - ELASTIC_PASSWORD=${ES_PASSWORD}
+    volumes:
+      - es_data_prod_01:/usr/share/elasticsearch/data
+      - ./certs:/usr/share/elasticsearch/config/certs:ro
+    deploy:
+      resources:
+        limits:
+          memory: 4g
+          cpus: "2"
+        reservations:
+          memory: 2g
+    restart: always
+    networks:
+      - elastic_net
+
+  # ── ES node 2 ─────────────────────────────────────────────────
+  elasticsearch02:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
+    container_name: es02
+    environment:
+      - node.name=es02
+      - cluster.name=${ES_CLUSTER_NAME:-prod-cluster}
+      - cluster.initial_master_nodes=es01,es02
+      - discovery.seed_hosts=es01
+      - xpack.security.enabled=true
+      - xpack.security.http.ssl.enabled=true
+      - xpack.security.http.ssl.keystore.path=/usr/share/elasticsearch/config/certs/elastic-certificates.p12
+      - xpack.security.transport.ssl.enabled=true
+      - xpack.security.transport.ssl.keystore.path=/usr/share/elasticsearch/config/certs/elastic-certificates.p12
+      - ES_JAVA_OPTS=-Xms2g -Xmx2g
+      - ELASTIC_PASSWORD=${ES_PASSWORD}
+    volumes:
+      - es_data_prod_02:/usr/share/elasticsearch/data
+      - ./certs:/usr/share/elasticsearch/config/certs:ro
+    deploy:
+      resources:
+        limits:
+          memory: 4g
+          cpus: "2"
+        reservations:
+          memory: 2g
+    restart: always
+    networks:
+      - elastic_net
+
+  # ── API (production settings) ─────────────────────────────────
+  api:
+    image: ${API_IMAGE:-yourorg/go-elastic-search:latest}
+    container_name: api_prod
+    environment:
+      - APP_ENV=production
+      - APP_PORT=8080
+      - APP_NAME=go-elastic-search
+      - ES_ADDRESSES=https://es01:9200,https://es02:9200
+      - ES_USERNAME=elastic
+      - ES_PASSWORD=${ES_PASSWORD}
+      - ES_CA_CERT=/certs/ca.crt
+      - READ_TIMEOUT_SECONDS=10
+      - WRITE_TIMEOUT_SECONDS=30
+      - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS:-https://yourdomain.com}
+    volumes:
+      - ./certs:/certs:ro
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          memory: 512m
+          cpus: "0.5"
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    restart: always
+    networks:
+      - elastic_net
+
+  # ── No Kibana in prod (or put it behind auth proxy) ────────────
+  kibana:
+    profiles: ["monitoring"]   # opt-in: docker compose --profile monitoring up
+
+volumes:
+  es_data_prod_01:
+  es_data_prod_02:

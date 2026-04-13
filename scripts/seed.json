@@ -1,0 +1,104 @@
+{
+  "products": [
+    {
+      "name": "Laptop Pro 15",
+      "description": "High-performance laptop with 15-inch Retina display, 16GB RAM, and 512GB SSD",
+      "category": "Electronics",
+      "brand": "TechBrand",
+      "price": 1299.99,
+      "stock": 50,
+      "tags": ["laptop", "computer", "portable", "professional"],
+      "is_active": true
+    },
+    {
+      "name": "Wireless Noise-Cancelling Headphones",
+      "description": "Premium over-ear headphones with 30-hour battery and active noise cancellation",
+      "category": "Electronics",
+      "brand": "AudioMax",
+      "price": 249.99,
+      "stock": 120,
+      "tags": ["headphones", "audio", "wireless", "noise-cancelling"],
+      "is_active": true
+    },
+    {
+      "name": "Ergonomic Mechanical Keyboard",
+      "description": "Split ergonomic layout with Cherry MX switches, RGB backlight, and USB-C",
+      "category": "Accessories",
+      "brand": "KeyMaster",
+      "price": 179.00,
+      "stock": 75,
+      "tags": ["keyboard", "mechanical", "ergonomic", "rgb"],
+      "is_active": true
+    },
+    {
+      "name": "4K Ultra HD Monitor 27\"",
+      "description": "27-inch IPS panel, 4K resolution, 144Hz refresh rate, HDR400, USB-C hub",
+      "category": "Electronics",
+      "brand": "ViewPerfect",
+      "price": 599.00,
+      "stock": 30,
+      "tags": ["monitor", "4k", "display", "gaming"],
+      "is_active": true
+    },
+    {
+      "name": "USB-C Hub 7-in-1",
+      "description": "Compact hub with HDMI 4K, 3x USB-A, SD card reader, PD charging, and Ethernet",
+      "category": "Accessories",
+      "brand": "ConnectPro",
+      "price": 49.99,
+      "stock": 200,
+      "tags": ["hub", "usb-c", "adapter", "connectivity"],
+      "is_active": true
+    },
+    {
+      "name": "Wireless Vertical Mouse",
+      "description": "Ergonomic vertical design reduces wrist strain, 2.4GHz wireless, 6 buttons",
+      "category": "Accessories",
+      "brand": "ErgoTech",
+      "price": 39.99,
+      "stock": 150,
+      "tags": ["mouse", "ergonomic", "wireless", "vertical"],
+      "is_active": true
+    },
+    {
+      "name": "Portable SSD 1TB",
+      "description": "Ultra-fast external SSD with 1050MB/s read speed, USB 3.2, shock-resistant",
+      "category": "Storage",
+      "brand": "SpeedDrive",
+      "price": 119.99,
+      "stock": 80,
+      "tags": ["ssd", "storage", "portable", "fast"],
+      "is_active": true
+    },
+    {
+      "name": "Webcam 4K Pro",
+      "description": "4K 30fps webcam with autofocus, built-in ring light, and noise-cancelling mic",
+      "category": "Electronics",
+      "brand": "ClearVision",
+      "price": 149.99,
+      "stock": 60,
+      "tags": ["webcam", "camera", "streaming", "4k"],
+      "is_active": true
+    },
+    {
+      "name": "Standing Desk Converter",
+      "description": "Height-adjustable desk riser, fits dual monitors, quick-lift mechanism",
+      "category": "Furniture",
+      "brand": "StandWell",
+      "price": 189.00,
+      "stock": 25,
+      "tags": ["desk", "standing", "ergonomic", "office"],
+      "is_active": false
+    },
+    {
+      "name": "Laptop Cooling Pad",
+      "description": "Dual-fan cooling pad with RGB lighting, adjustable height, USB pass-through",
+      "category": "Accessories",
+      "brand": "CoolFlow",
+      "price": 29.99,
+      "stock": 100,
+      "tags": ["cooling", "laptop", "fan", "accessories"],
+      "is_active": true
+    }
+  ]
+}
