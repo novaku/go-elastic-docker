@@ -8,13 +8,22 @@ RUN apk add --no-cache ca-certificates git
 
 WORKDIR /app
 
-# Copy source (vendor folder provides all dependencies offline)
+# Copy go.mod + go.sum first for better caching
+COPY go.mod go.sum ./
+
+# Copy vendor folder (pre-resolved dependencies)
+COPY vendor ./vendor
+
+# Copy source code last (changes here won't invalidate dependency cache)
 COPY . .
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
+
+# Compute version once
+RUN VERSION=$(git describe --tags --always --dirty 2>/dev/null || echo dev) && \
+    CGO_ENABLED=0 GOOS=linux GOARCH=arm64 \
     go build \
     -mod=vendor \
     -trimpath \
-    -ldflags="-s -w -X main.version=$(git describe --tags --always --dirty 2>/dev/null || echo dev)" \
+    -ldflags="-s -w -X main.version=${VERSION}" \
     -o /app/server \
     ./cmd/api
 

@@ -2,13 +2,17 @@
   "app": {
     "port": "8080",
     "env": "production",
-    "read_timeout": 10,
-    "write_timeout": 10
+    "read_timeout": "10s",
+    "write_timeout": "10s"
   },
   "elasticsearch": {
-    "url": "http://elasticsearch:9200",
+    "addresses": [
+      "https://es01:9200",
+      "https://es02:9200"
+    ],
     "username": "elastic",
-    "password": "changeme"
+    "password": "changeme",
+    "ca_cert": "/certs/ca.crt"
   },
   "cors_allowed_origins": "https://yourdomain.com"
 }

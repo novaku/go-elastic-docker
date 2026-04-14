@@ -25,7 +25,7 @@ Mendukung pencarian teks penuh, fuzzy matching, filter, paginasi, pengurutan, bu
 # 1. Clone dan konfigurasi
 cp .env.example .env
 
-# 2. Jalankan stack (ES + Kibana + API)
+# 2. Jalankan stack (ES + API)
 make dev
 
 # 3. Cek kesehatan layanan
@@ -119,6 +119,20 @@ make test         # jalankan pengujian
 make lint         # jalankan golangci-lint
 ```
 
+## Konfigurasi
+
+Seluruh konfigurasi API dipusatkan di file JSON pada folder `config/`:
+
+- `config/local.json` untuk mode lokal
+- `config/production.json` untuk mode produksi
+
+Saat runtime, aplikasi hanya membaca `APP_ENV` untuk menentukan file mana yang dipakai:
+
+```bash
+APP_ENV=local       # load config/local.json
+APP_ENV=production  # load config/production.json
+```
+
 ---
 
 ## Deploy ke Produksi
@@ -126,9 +140,11 @@ make lint         # jalankan golangci-lint
 ### Single-host (Docker Compose)
 
 ```bash
-# Set secrets di environment atau .env
+# APP_ENV memilih file config API
+export APP_ENV=production
+
+# Variable tambahan ini dipakai oleh service Elasticsearch dan image tag di compose
 export ES_PASSWORD=your-strong-password
-export CORS_ALLOWED_ORIGINS=https://yourdomain.com
 export API_IMAGE=yourorg/go-elastic-search:1.0.0
 
 make prod-up
@@ -151,8 +167,8 @@ docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
 Container API ini bersifat stateless. Skala secara horizontal dengan cara:
 
 1. Deploy image `go-elastic-search` sebagai Deployment/Task
-2. Arahkan `ES_ADDRESSES` ke cluster ES terkelola (Elastic Cloud, AWS OpenSearch, dll.)
-3. Gunakan Kubernetes Secret / AWS Secrets Manager untuk `ES_PASSWORD`
+2. Kelola konfigurasi API via `config/production.json` (port, Elasticsearch, CORS, timeout)
+3. Simpan kredensial sensitif dengan secret manager, lalu inject saat build/release config
 
 ---
 
@@ -161,7 +177,7 @@ Container API ini bersifat stateless. Skala secara horizontal dengan cara:
 ```text
 .
 ├── cmd/api/          # Titik masuk aplikasi (main.go)
-├── config/           # Pemuatan konfigurasi dari env vars
+├── config/           # Konfigurasi JSON per environment (local/production)
 ├── internal/
 │   ├── elasticsearch/ # Wrapper client ES
 │   ├── handler/       # HTTP handler (Gin)
@@ -179,13 +195,7 @@ Container API ini bersifat stateless. Skala secara horizontal dengan cara:
 
 | Variabel | Default | Deskripsi |
 | -------- | ------- | --------- |
-| `APP_ENV` | `development` | `development` atau `production` |
-| `APP_PORT` | `8080` | Port HTTP |
-| `ES_ADDRESSES` | `http://localhost:9200` | URL node ES yang dipisahkan koma |
-| `ES_USERNAME` | _(kosong)_ | Username basic auth ES |
-| `ES_PASSWORD` | _(kosong)_ | Password basic auth ES |
-| `ES_API_KEY` | _(kosong)_ | API key ES (alternatif dari basic auth) |
-| `ES_CA_CERT` | _(kosong)_ | Path ke CA cert untuk TLS |
-| `CORS_ALLOWED_ORIGINS` | `*` | Origin yang diizinkan untuk CORS |
-| `READ_TIMEOUT_SECONDS` | `10` | Timeout baca HTTP |
-| `WRITE_TIMEOUT_SECONDS` | `30` | Timeout tulis HTTP |
+| `APP_ENV` | `local` | Selector file config API: `local` atau `production` |
+| `ES_PASSWORD` | `changeme` | Dipakai Docker Compose production untuk bootstrap Elasticsearch |
+| `API_IMAGE` | `yourorg/go-elastic-search:latest` | Image API yang dipakai di compose production |
+| `ES_CLUSTER_NAME` | `prod-cluster` | Nama cluster Elasticsearch untuk compose production |

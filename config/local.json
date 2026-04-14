@@ -2,13 +2,15 @@
   "app": {
     "port": "8080",
     "env": "local",
-    "read_timeout": 10,
-    "write_timeout": 10
+    "read_timeout": "10s",
+    "write_timeout": "10s"
   },
   "elasticsearch": {
-    "url": "http://localhost:9200",
-    "username": "elastic",
-    "password": "changeme"
+    "addresses": [
+      "http://elasticsearch:9200"
+    ],
+    "username": "",
+    "password": ""
   },
   "cors_allowed_origins": "*"
 }

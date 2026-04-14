@@ -9,11 +9,10 @@ help: ## Show this help
 	@awk 'BEGIN{FS=":.*##"} /^[a-zA-Z_-]+:.*##/{printf "  \033[36m%-18s\033[0m %s\n",$$1,$$2}' $(MAKEFILE_LIST)
 
 # ── Local dev (Docker Compose) ────────────────────────────────────
-dev: ## Start full local stack (ES + Kibana + API)
+dev: ## Start full local stack (ES + API)
 	docker compose up --build -d
 	@echo "\n✅ Stack running:"
 	@echo "   API     → http://localhost:8080"
-	@echo "   Kibana  → http://localhost:5601"
 
 down: ## Stop and remove all containers + volumes
 	docker compose down -v
