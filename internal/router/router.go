@@ -8,6 +8,7 @@ import (
 	"github.com/novaku/go-elastic-search/internal/handler"
 	"github.com/novaku/go-elastic-search/internal/middleware"
 	"github.com/novaku/go-elastic-search/internal/service"
+	"github.com/novaku/go-elastic-search/internal/ui"
 	"go.uber.org/zap"
 )
 
@@ -38,6 +39,15 @@ func New(cfg *config.Config, productSvc service.ProductUseCase, healthChecker se
 	r.GET("/ready", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"status": "ready"})
 	})
+
+	qaAssets := gin.WrapH(http.StripPrefix("/qa", ui.Handler()))
+	r.GET("/", func(c *gin.Context) {
+		c.Redirect(http.StatusTemporaryRedirect, "/qa/")
+	})
+	r.GET("/qa", func(c *gin.Context) {
+		c.Redirect(http.StatusTemporaryRedirect, "/qa/")
+	})
+	r.GET("/qa/*filepath", qaAssets)
 
 	v1 := r.Group("/v1")
 	handler.NewProductHandler(productSvc, logger).RegisterRoutes(v1)

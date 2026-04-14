@@ -11,8 +11,16 @@ help: ## Show this help
 # ── Local dev (Docker Compose) ────────────────────────────────────
 dev: ## Start full local stack (ES + API)
 	docker compose up --build -d
+	@printf "\n⏳ Waiting for API to be ready"
+	@until curl -fsS http://localhost:8080/ready >/dev/null 2>&1; do \
+		printf "."; \
+		sleep 1; \
+	done
+	@echo ""
 	@echo "\n✅ Stack running:"
 	@echo "   API     → http://localhost:8080"
+	@echo "   QA UI   → http://localhost:8080/qa/"
+	@open http://localhost:8080/qa/ >/dev/null 2>&1 || true
 
 down: ## Stop and remove all containers + volumes
 	docker compose down -v

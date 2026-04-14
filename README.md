@@ -33,7 +33,36 @@ curl http://localhost:8080/health
 
 # 4. Isi data awal
 make seed
+
+# 5. Buka QA UI (end-to-end test harness)
+open http://localhost:8080/qa/
 ```
+
+## QA End-to-End UI
+
+API sudah dilengkapi frontend QA berbasis browser di path berikut:
+
+```text
+GET /qa/
+```
+
+Halaman ini mengimplementasikan semua endpoint backend:
+
+- `GET /health`
+- `GET /ready`
+- `GET /v1/products`
+- `POST /v1/products`
+- `POST /v1/products/bulk`
+- `GET /v1/products/:id`
+- `PUT /v1/products/:id`
+- `DELETE /v1/products/:id`
+
+Fitur untuk QA:
+
+- Input `API Base URL` (default ke origin saat ini, bisa diarahkan ke environment lain)
+- Form terpisah untuk search, create, get by id, update, delete, dan bulk index
+- Panel hasil response JSON per endpoint
+- Request log ringkas untuk pelacakan langkah uji
 
 ---
 

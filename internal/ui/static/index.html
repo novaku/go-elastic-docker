@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QA Console - Go Elastic Search API</title>
+  <link rel="stylesheet" href="/qa/style.css" />
+</head>
+<body>
+  <div class="bg-shape bg-1"></div>
+  <div class="bg-shape bg-2"></div>
+
+  <header class="hero">
+    <h1>QA Console</h1>
+    <p>End-to-end test harness for Go + Elasticsearch Product API</p>
+    <div class="api-base-row">
+      <label for="apiBase">API Base URL</label>
+      <input id="apiBase" type="text" placeholder="http://localhost:8080" />
+      <button id="saveApiBase" class="btn">Save</button>
+    </div>
+  </header>
+
+  <main class="grid">
+    <section class="card">
+      <h2>Service Health</h2>
+      <div class="row">
+        <button class="btn" data-action="health">GET /health</button>
+        <button class="btn" data-action="ready">GET /ready</button>
+      </div>
+      <pre id="healthResult" class="result"></pre>
+    </section>
+
+    <section class="card wide">
+      <h2>Search Products</h2>
+      <form id="searchForm" class="form-grid">
+        <input name="q" placeholder="q (full text)" />
+        <input name="category" placeholder="category" />
+        <input name="brand" placeholder="brand" />
+        <input name="min_price" type="number" step="0.01" placeholder="min_price" />
+        <input name="max_price" type="number" step="0.01" placeholder="max_price" />
+        <input name="tags" placeholder="tags,comma,separated" />
+        <select name="is_active">
+          <option value="">is_active (all)</option>
+          <option value="true">true</option>
+          <option value="false">false</option>
+        </select>
+        <input name="sort_by" placeholder="sort_by (price, created_at)" />
+        <select name="sort_dir">
+          <option value="">sort_dir</option>
+          <option value="asc">asc</option>
+          <option value="desc">desc</option>
+        </select>
+        <input name="page" type="number" min="1" placeholder="page" />
+        <input name="page_size" type="number" min="1" max="100" placeholder="page_size" />
+        <button class="btn submit" type="submit">Search</button>
+      </form>
+      <pre id="searchResult" class="result"></pre>
+    </section>
+
+    <section class="card">
+      <h2>Create Product</h2>
+      <form id="createForm" class="stack">
+        <input name="name" required placeholder="name" />
+        <input name="description" placeholder="description" />
+        <input name="category" required placeholder="category" />
+        <input name="brand" placeholder="brand" />
+        <input name="price" type="number" step="0.01" required placeholder="price" />
+        <input name="stock" type="number" min="0" placeholder="stock" />
+        <input name="tags" placeholder="tags,comma,separated" />
+        <label class="check"><input name="is_active" type="checkbox" checked /> is_active</label>
+        <button class="btn submit" type="submit">POST /v1/products</button>
+      </form>
+      <pre id="createResult" class="result"></pre>
+    </section>
+
+    <section class="card">
+      <h2>Get Product by ID</h2>
+      <form id="getForm" class="stack">
+        <input name="id" required placeholder="product id" />
+        <button class="btn submit" type="submit">GET /v1/products/:id</button>
+      </form>
+      <pre id="getResult" class="result"></pre>
+    </section>
+
+    <section class="card">
+      <h2>Update Product</h2>
+      <form id="updateForm" class="stack">
+        <input name="id" required placeholder="product id" />
+        <input name="name" placeholder="name (optional)" />
+        <input name="description" placeholder="description (optional)" />
+        <input name="category" placeholder="category (optional)" />
+        <input name="brand" placeholder="brand (optional)" />
+        <input name="price" type="number" step="0.01" placeholder="price (optional)" />
+        <input name="stock" type="number" min="0" placeholder="stock (optional)" />
+        <input name="tags" placeholder="tags,comma,separated (optional)" />
+        <select name="is_active">
+          <option value="">is_active (ignore)</option>
+          <option value="true">true</option>
+          <option value="false">false</option>
+        </select>
+        <button class="btn submit" type="submit">PUT /v1/products/:id</button>
+      </form>
+      <pre id="updateResult" class="result"></pre>
+    </section>
+
+    <section class="card">
+      <h2>Delete Product</h2>
+      <form id="deleteForm" class="stack">
+        <input name="id" required placeholder="product id" />
+        <button class="btn danger" type="submit">DELETE /v1/products/:id</button>
+      </form>
+      <pre id="deleteResult" class="result"></pre>
+    </section>
+
+    <section class="card wide">
+      <h2>Bulk Index</h2>
+      <p class="hint">Paste JSON array payload as <code>{"products": [...]}</code>.</p>
+      <form id="bulkForm" class="stack">
+        <textarea id="bulkPayload" rows="10" spellcheck="false">{
+  "products": [
+    {
+      "name": "Mechanical Keyboard",
+      "description": "Hot-swappable, RGB backlight",
+      "category": "Accessories",
+      "brand": "KeyCraft",
+      "price": 99.9,
+      "stock": 50,
+      "tags": ["keyboard", "mechanical"],
+      "is_active": true
+    }
+  ]
+}</textarea>
+        <button class="btn submit" type="submit">POST /v1/products/bulk</button>
+      </form>
+      <pre id="bulkResult" class="result"></pre>
+    </section>
+
+    <section class="card wide">
+      <h2>Request Log</h2>
+      <pre id="requestLog" class="result log"></pre>
+    </section>
+  </main>
+
+  <script src="/qa/app.js"></script>
+</body>
+</html>

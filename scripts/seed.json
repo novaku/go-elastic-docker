@@ -7,7 +7,12 @@
       "brand": "TechBrand",
       "price": 1299.99,
       "stock": 50,
-      "tags": ["laptop", "computer", "portable", "professional"],
+      "tags": [
+        "laptop",
+        "computer",
+        "portable",
+        "professional"
+      ],
       "is_active": true
     },
     {
@@ -17,7 +22,12 @@
       "brand": "AudioMax",
       "price": 249.99,
       "stock": 120,
-      "tags": ["headphones", "audio", "wireless", "noise-cancelling"],
+      "tags": [
+        "headphones",
+        "audio",
+        "wireless",
+        "noise-cancelling"
+      ],
       "is_active": true
     },
     {
@@ -27,7 +37,12 @@
       "brand": "KeyMaster",
       "price": 179.00,
       "stock": 75,
-      "tags": ["keyboard", "mechanical", "ergonomic", "rgb"],
+      "tags": [
+        "keyboard",
+        "mechanical",
+        "ergonomic",
+        "rgb"
+      ],
       "is_active": true
     },
     {
@@ -37,7 +52,12 @@
       "brand": "ViewPerfect",
       "price": 599.00,
       "stock": 30,
-      "tags": ["monitor", "4k", "display", "gaming"],
+      "tags": [
+        "monitor",
+        "4k",
+        "display",
+        "gaming"
+      ],
       "is_active": true
     },
     {
@@ -47,7 +67,12 @@
       "brand": "ConnectPro",
       "price": 49.99,
       "stock": 200,
-      "tags": ["hub", "usb-c", "adapter", "connectivity"],
+      "tags": [
+        "hub",
+        "usb-c",
+        "adapter",
+        "connectivity"
+      ],
       "is_active": true
     },
     {
@@ -57,7 +82,12 @@
       "brand": "ErgoTech",
       "price": 39.99,
       "stock": 150,
-      "tags": ["mouse", "ergonomic", "wireless", "vertical"],
+      "tags": [
+        "mouse",
+        "ergonomic",
+        "wireless",
+        "vertical"
+      ],
       "is_active": true
     },
     {
@@ -67,7 +97,12 @@
       "brand": "SpeedDrive",
       "price": 119.99,
       "stock": 80,
-      "tags": ["ssd", "storage", "portable", "fast"],
+      "tags": [
+        "ssd",
+        "storage",
+        "portable",
+        "fast"
+      ],
       "is_active": true
     },
     {
@@ -77,7 +112,12 @@
       "brand": "ClearVision",
       "price": 149.99,
       "stock": 60,
-      "tags": ["webcam", "camera", "streaming", "4k"],
+      "tags": [
+        "webcam",
+        "camera",
+        "streaming",
+        "4k"
+      ],
       "is_active": true
     },
     {
@@ -87,7 +127,12 @@
       "brand": "StandWell",
       "price": 189.00,
       "stock": 25,
-      "tags": ["desk", "standing", "ergonomic", "office"],
+      "tags": [
+        "desk",
+        "standing",
+        "ergonomic",
+        "office"
+      ],
       "is_active": false
     },
     {
@@ -97,7 +142,1512 @@
       "brand": "CoolFlow",
       "price": 29.99,
       "stock": 100,
-      "tags": ["cooling", "laptop", "fan", "accessories"],
+      "tags": [
+        "cooling",
+        "laptop",
+        "fan",
+        "accessories"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 001",
+      "description": "Auto-generated seed product #1 for Elasticsearch indexing and search testing",
+      "category": "Electronics",
+      "brand": "NovaTech",
+      "price": 24.99,
+      "stock": 27,
+      "tags": [
+        "seed",
+        "autogen",
+        "electronics",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 002",
+      "description": "Auto-generated seed product #2 for Elasticsearch indexing and search testing",
+      "category": "Accessories",
+      "brand": "OrbitGear",
+      "price": 26.74,
+      "stock": 34,
+      "tags": [
+        "seed",
+        "autogen",
+        "accessories",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 003",
+      "description": "Auto-generated seed product #3 for Elasticsearch indexing and search testing",
+      "category": "Storage",
+      "brand": "PixelWare",
+      "price": 28.49,
+      "stock": 41,
+      "tags": [
+        "seed",
+        "autogen",
+        "storage",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 004",
+      "description": "Auto-generated seed product #4 for Elasticsearch indexing and search testing",
+      "category": "Furniture",
+      "brand": "TerraOffice",
+      "price": 30.24,
+      "stock": 48,
+      "tags": [
+        "seed",
+        "autogen",
+        "furniture",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 005",
+      "description": "Auto-generated seed product #5 for Elasticsearch indexing and search testing",
+      "category": "Office",
+      "brand": "CoreLine",
+      "price": 31.99,
+      "stock": 55,
+      "tags": [
+        "seed",
+        "autogen",
+        "office",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 006",
+      "description": "Auto-generated seed product #6 for Elasticsearch indexing and search testing",
+      "category": "Electronics",
+      "brand": "NovaTech",
+      "price": 33.74,
+      "stock": 62,
+      "tags": [
+        "seed",
+        "autogen",
+        "electronics",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 007",
+      "description": "Auto-generated seed product #7 for Elasticsearch indexing and search testing",
+      "category": "Accessories",
+      "brand": "OrbitGear",
+      "price": 35.49,
+      "stock": 69,
+      "tags": [
+        "seed",
+        "autogen",
+        "accessories",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 008",
+      "description": "Auto-generated seed product #8 for Elasticsearch indexing and search testing",
+      "category": "Storage",
+      "brand": "PixelWare",
+      "price": 37.24,
+      "stock": 76,
+      "tags": [
+        "seed",
+        "autogen",
+        "storage",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 009",
+      "description": "Auto-generated seed product #9 for Elasticsearch indexing and search testing",
+      "category": "Furniture",
+      "brand": "TerraOffice",
+      "price": 38.99,
+      "stock": 83,
+      "tags": [
+        "seed",
+        "autogen",
+        "furniture",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 010",
+      "description": "Auto-generated seed product #10 for Elasticsearch indexing and search testing",
+      "category": "Office",
+      "brand": "CoreLine",
+      "price": 40.74,
+      "stock": 90,
+      "tags": [
+        "seed",
+        "autogen",
+        "office",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 011",
+      "description": "Auto-generated seed product #11 for Elasticsearch indexing and search testing",
+      "category": "Electronics",
+      "brand": "NovaTech",
+      "price": 42.49,
+      "stock": 97,
+      "tags": [
+        "seed",
+        "autogen",
+        "electronics",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 012",
+      "description": "Auto-generated seed product #12 for Elasticsearch indexing and search testing",
+      "category": "Accessories",
+      "brand": "OrbitGear",
+      "price": 44.24,
+      "stock": 104,
+      "tags": [
+        "seed",
+        "autogen",
+        "accessories",
+        "batch-a"
+      ],
+      "is_active": false
+    },
+    {
+      "name": "Bulk Seed Product 013",
+      "description": "Auto-generated seed product #13 for Elasticsearch indexing and search testing",
+      "category": "Storage",
+      "brand": "PixelWare",
+      "price": 45.99,
+      "stock": 111,
+      "tags": [
+        "seed",
+        "autogen",
+        "storage",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 014",
+      "description": "Auto-generated seed product #14 for Elasticsearch indexing and search testing",
+      "category": "Furniture",
+      "brand": "TerraOffice",
+      "price": 47.74,
+      "stock": 118,
+      "tags": [
+        "seed",
+        "autogen",
+        "furniture",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 015",
+      "description": "Auto-generated seed product #15 for Elasticsearch indexing and search testing",
+      "category": "Office",
+      "brand": "CoreLine",
+      "price": 49.49,
+      "stock": 125,
+      "tags": [
+        "seed",
+        "autogen",
+        "office",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 016",
+      "description": "Auto-generated seed product #16 for Elasticsearch indexing and search testing",
+      "category": "Electronics",
+      "brand": "NovaTech",
+      "price": 51.24,
+      "stock": 132,
+      "tags": [
+        "seed",
+        "autogen",
+        "electronics",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 017",
+      "description": "Auto-generated seed product #17 for Elasticsearch indexing and search testing",
+      "category": "Accessories",
+      "brand": "OrbitGear",
+      "price": 52.99,
+      "stock": 139,
+      "tags": [
+        "seed",
+        "autogen",
+        "accessories",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 018",
+      "description": "Auto-generated seed product #18 for Elasticsearch indexing and search testing",
+      "category": "Storage",
+      "brand": "PixelWare",
+      "price": 54.74,
+      "stock": 146,
+      "tags": [
+        "seed",
+        "autogen",
+        "storage",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 019",
+      "description": "Auto-generated seed product #19 for Elasticsearch indexing and search testing",
+      "category": "Furniture",
+      "brand": "TerraOffice",
+      "price": 56.49,
+      "stock": 153,
+      "tags": [
+        "seed",
+        "autogen",
+        "furniture",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 020",
+      "description": "Auto-generated seed product #20 for Elasticsearch indexing and search testing",
+      "category": "Office",
+      "brand": "CoreLine",
+      "price": 58.24,
+      "stock": 160,
+      "tags": [
+        "seed",
+        "autogen",
+        "office",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 021",
+      "description": "Auto-generated seed product #21 for Elasticsearch indexing and search testing",
+      "category": "Electronics",
+      "brand": "NovaTech",
+      "price": 59.99,
+      "stock": 167,
+      "tags": [
+        "seed",
+        "autogen",
+        "electronics",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 022",
+      "description": "Auto-generated seed product #22 for Elasticsearch indexing and search testing",
+      "category": "Accessories",
+      "brand": "OrbitGear",
+      "price": 61.74,
+      "stock": 174,
+      "tags": [
+        "seed",
+        "autogen",
+        "accessories",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 023",
+      "description": "Auto-generated seed product #23 for Elasticsearch indexing and search testing",
+      "category": "Storage",
+      "brand": "PixelWare",
+      "price": 63.49,
+      "stock": 181,
+      "tags": [
+        "seed",
+        "autogen",
+        "storage",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 024",
+      "description": "Auto-generated seed product #24 for Elasticsearch indexing and search testing",
+      "category": "Furniture",
+      "brand": "TerraOffice",
+      "price": 65.24,
+      "stock": 188,
+      "tags": [
+        "seed",
+        "autogen",
+        "furniture",
+        "batch-a"
+      ],
+      "is_active": false
+    },
+    {
+      "name": "Bulk Seed Product 025",
+      "description": "Auto-generated seed product #25 for Elasticsearch indexing and search testing",
+      "category": "Office",
+      "brand": "CoreLine",
+      "price": 66.99,
+      "stock": 195,
+      "tags": [
+        "seed",
+        "autogen",
+        "office",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 026",
+      "description": "Auto-generated seed product #26 for Elasticsearch indexing and search testing",
+      "category": "Electronics",
+      "brand": "NovaTech",
+      "price": 68.74,
+      "stock": 21,
+      "tags": [
+        "seed",
+        "autogen",
+        "electronics",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 027",
+      "description": "Auto-generated seed product #27 for Elasticsearch indexing and search testing",
+      "category": "Accessories",
+      "brand": "OrbitGear",
+      "price": 70.49,
+      "stock": 28,
+      "tags": [
+        "seed",
+        "autogen",
+        "accessories",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 028",
+      "description": "Auto-generated seed product #28 for Elasticsearch indexing and search testing",
+      "category": "Storage",
+      "brand": "PixelWare",
+      "price": 72.24,
+      "stock": 35,
+      "tags": [
+        "seed",
+        "autogen",
+        "storage",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 029",
+      "description": "Auto-generated seed product #29 for Elasticsearch indexing and search testing",
+      "category": "Furniture",
+      "brand": "TerraOffice",
+      "price": 73.99,
+      "stock": 42,
+      "tags": [
+        "seed",
+        "autogen",
+        "furniture",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 030",
+      "description": "Auto-generated seed product #30 for Elasticsearch indexing and search testing",
+      "category": "Office",
+      "brand": "CoreLine",
+      "price": 75.74,
+      "stock": 49,
+      "tags": [
+        "seed",
+        "autogen",
+        "office",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 031",
+      "description": "Auto-generated seed product #31 for Elasticsearch indexing and search testing",
+      "category": "Electronics",
+      "brand": "NovaTech",
+      "price": 77.49,
+      "stock": 56,
+      "tags": [
+        "seed",
+        "autogen",
+        "electronics",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 032",
+      "description": "Auto-generated seed product #32 for Elasticsearch indexing and search testing",
+      "category": "Accessories",
+      "brand": "OrbitGear",
+      "price": 79.24,
+      "stock": 63,
+      "tags": [
+        "seed",
+        "autogen",
+        "accessories",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 033",
+      "description": "Auto-generated seed product #33 for Elasticsearch indexing and search testing",
+      "category": "Storage",
+      "brand": "PixelWare",
+      "price": 80.99,
+      "stock": 70,
+      "tags": [
+        "seed",
+        "autogen",
+        "storage",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 034",
+      "description": "Auto-generated seed product #34 for Elasticsearch indexing and search testing",
+      "category": "Furniture",
+      "brand": "TerraOffice",
+      "price": 82.74,
+      "stock": 77,
+      "tags": [
+        "seed",
+        "autogen",
+        "furniture",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 035",
+      "description": "Auto-generated seed product #35 for Elasticsearch indexing and search testing",
+      "category": "Office",
+      "brand": "CoreLine",
+      "price": 84.49,
+      "stock": 84,
+      "tags": [
+        "seed",
+        "autogen",
+        "office",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 036",
+      "description": "Auto-generated seed product #36 for Elasticsearch indexing and search testing",
+      "category": "Electronics",
+      "brand": "NovaTech",
+      "price": 86.24,
+      "stock": 91,
+      "tags": [
+        "seed",
+        "autogen",
+        "electronics",
+        "batch-a"
+      ],
+      "is_active": false
+    },
+    {
+      "name": "Bulk Seed Product 037",
+      "description": "Auto-generated seed product #37 for Elasticsearch indexing and search testing",
+      "category": "Accessories",
+      "brand": "OrbitGear",
+      "price": 87.99,
+      "stock": 98,
+      "tags": [
+        "seed",
+        "autogen",
+        "accessories",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 038",
+      "description": "Auto-generated seed product #38 for Elasticsearch indexing and search testing",
+      "category": "Storage",
+      "brand": "PixelWare",
+      "price": 89.74,
+      "stock": 105,
+      "tags": [
+        "seed",
+        "autogen",
+        "storage",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 039",
+      "description": "Auto-generated seed product #39 for Elasticsearch indexing and search testing",
+      "category": "Furniture",
+      "brand": "TerraOffice",
+      "price": 91.49,
+      "stock": 112,
+      "tags": [
+        "seed",
+        "autogen",
+        "furniture",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 040",
+      "description": "Auto-generated seed product #40 for Elasticsearch indexing and search testing",
+      "category": "Office",
+      "brand": "CoreLine",
+      "price": 93.24,
+      "stock": 119,
+      "tags": [
+        "seed",
+        "autogen",
+        "office",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 041",
+      "description": "Auto-generated seed product #41 for Elasticsearch indexing and search testing",
+      "category": "Electronics",
+      "brand": "NovaTech",
+      "price": 94.99,
+      "stock": 126,
+      "tags": [
+        "seed",
+        "autogen",
+        "electronics",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 042",
+      "description": "Auto-generated seed product #42 for Elasticsearch indexing and search testing",
+      "category": "Accessories",
+      "brand": "OrbitGear",
+      "price": 96.74,
+      "stock": 133,
+      "tags": [
+        "seed",
+        "autogen",
+        "accessories",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 043",
+      "description": "Auto-generated seed product #43 for Elasticsearch indexing and search testing",
+      "category": "Storage",
+      "brand": "PixelWare",
+      "price": 98.49,
+      "stock": 140,
+      "tags": [
+        "seed",
+        "autogen",
+        "storage",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 044",
+      "description": "Auto-generated seed product #44 for Elasticsearch indexing and search testing",
+      "category": "Furniture",
+      "brand": "TerraOffice",
+      "price": 100.24,
+      "stock": 147,
+      "tags": [
+        "seed",
+        "autogen",
+        "furniture",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 045",
+      "description": "Auto-generated seed product #45 for Elasticsearch indexing and search testing",
+      "category": "Office",
+      "brand": "CoreLine",
+      "price": 101.99,
+      "stock": 154,
+      "tags": [
+        "seed",
+        "autogen",
+        "office",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 046",
+      "description": "Auto-generated seed product #46 for Elasticsearch indexing and search testing",
+      "category": "Electronics",
+      "brand": "NovaTech",
+      "price": 103.74,
+      "stock": 161,
+      "tags": [
+        "seed",
+        "autogen",
+        "electronics",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 047",
+      "description": "Auto-generated seed product #47 for Elasticsearch indexing and search testing",
+      "category": "Accessories",
+      "brand": "OrbitGear",
+      "price": 105.49,
+      "stock": 168,
+      "tags": [
+        "seed",
+        "autogen",
+        "accessories",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 048",
+      "description": "Auto-generated seed product #48 for Elasticsearch indexing and search testing",
+      "category": "Storage",
+      "brand": "PixelWare",
+      "price": 107.24,
+      "stock": 175,
+      "tags": [
+        "seed",
+        "autogen",
+        "storage",
+        "batch-a"
+      ],
+      "is_active": false
+    },
+    {
+      "name": "Bulk Seed Product 049",
+      "description": "Auto-generated seed product #49 for Elasticsearch indexing and search testing",
+      "category": "Furniture",
+      "brand": "TerraOffice",
+      "price": 108.99,
+      "stock": 182,
+      "tags": [
+        "seed",
+        "autogen",
+        "furniture",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 050",
+      "description": "Auto-generated seed product #50 for Elasticsearch indexing and search testing",
+      "category": "Office",
+      "brand": "CoreLine",
+      "price": 110.74,
+      "stock": 189,
+      "tags": [
+        "seed",
+        "autogen",
+        "office",
+        "batch-a"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 051",
+      "description": "Auto-generated seed product #51 for Elasticsearch indexing and search testing",
+      "category": "Electronics",
+      "brand": "NovaTech",
+      "price": 112.49,
+      "stock": 196,
+      "tags": [
+        "seed",
+        "autogen",
+        "electronics",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 052",
+      "description": "Auto-generated seed product #52 for Elasticsearch indexing and search testing",
+      "category": "Accessories",
+      "brand": "OrbitGear",
+      "price": 114.24,
+      "stock": 22,
+      "tags": [
+        "seed",
+        "autogen",
+        "accessories",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 053",
+      "description": "Auto-generated seed product #53 for Elasticsearch indexing and search testing",
+      "category": "Storage",
+      "brand": "PixelWare",
+      "price": 115.99,
+      "stock": 29,
+      "tags": [
+        "seed",
+        "autogen",
+        "storage",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 054",
+      "description": "Auto-generated seed product #54 for Elasticsearch indexing and search testing",
+      "category": "Furniture",
+      "brand": "TerraOffice",
+      "price": 117.74,
+      "stock": 36,
+      "tags": [
+        "seed",
+        "autogen",
+        "furniture",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 055",
+      "description": "Auto-generated seed product #55 for Elasticsearch indexing and search testing",
+      "category": "Office",
+      "brand": "CoreLine",
+      "price": 119.49,
+      "stock": 43,
+      "tags": [
+        "seed",
+        "autogen",
+        "office",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 056",
+      "description": "Auto-generated seed product #56 for Elasticsearch indexing and search testing",
+      "category": "Electronics",
+      "brand": "NovaTech",
+      "price": 121.24,
+      "stock": 50,
+      "tags": [
+        "seed",
+        "autogen",
+        "electronics",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 057",
+      "description": "Auto-generated seed product #57 for Elasticsearch indexing and search testing",
+      "category": "Accessories",
+      "brand": "OrbitGear",
+      "price": 122.99,
+      "stock": 57,
+      "tags": [
+        "seed",
+        "autogen",
+        "accessories",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 058",
+      "description": "Auto-generated seed product #58 for Elasticsearch indexing and search testing",
+      "category": "Storage",
+      "brand": "PixelWare",
+      "price": 124.74,
+      "stock": 64,
+      "tags": [
+        "seed",
+        "autogen",
+        "storage",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 059",
+      "description": "Auto-generated seed product #59 for Elasticsearch indexing and search testing",
+      "category": "Furniture",
+      "brand": "TerraOffice",
+      "price": 126.49,
+      "stock": 71,
+      "tags": [
+        "seed",
+        "autogen",
+        "furniture",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 060",
+      "description": "Auto-generated seed product #60 for Elasticsearch indexing and search testing",
+      "category": "Office",
+      "brand": "CoreLine",
+      "price": 128.24,
+      "stock": 78,
+      "tags": [
+        "seed",
+        "autogen",
+        "office",
+        "batch-b"
+      ],
+      "is_active": false
+    },
+    {
+      "name": "Bulk Seed Product 061",
+      "description": "Auto-generated seed product #61 for Elasticsearch indexing and search testing",
+      "category": "Electronics",
+      "brand": "NovaTech",
+      "price": 129.99,
+      "stock": 85,
+      "tags": [
+        "seed",
+        "autogen",
+        "electronics",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 062",
+      "description": "Auto-generated seed product #62 for Elasticsearch indexing and search testing",
+      "category": "Accessories",
+      "brand": "OrbitGear",
+      "price": 131.74,
+      "stock": 92,
+      "tags": [
+        "seed",
+        "autogen",
+        "accessories",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 063",
+      "description": "Auto-generated seed product #63 for Elasticsearch indexing and search testing",
+      "category": "Storage",
+      "brand": "PixelWare",
+      "price": 133.49,
+      "stock": 99,
+      "tags": [
+        "seed",
+        "autogen",
+        "storage",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 064",
+      "description": "Auto-generated seed product #64 for Elasticsearch indexing and search testing",
+      "category": "Furniture",
+      "brand": "TerraOffice",
+      "price": 135.24,
+      "stock": 106,
+      "tags": [
+        "seed",
+        "autogen",
+        "furniture",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 065",
+      "description": "Auto-generated seed product #65 for Elasticsearch indexing and search testing",
+      "category": "Office",
+      "brand": "CoreLine",
+      "price": 136.99,
+      "stock": 113,
+      "tags": [
+        "seed",
+        "autogen",
+        "office",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 066",
+      "description": "Auto-generated seed product #66 for Elasticsearch indexing and search testing",
+      "category": "Electronics",
+      "brand": "NovaTech",
+      "price": 138.74,
+      "stock": 120,
+      "tags": [
+        "seed",
+        "autogen",
+        "electronics",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 067",
+      "description": "Auto-generated seed product #67 for Elasticsearch indexing and search testing",
+      "category": "Accessories",
+      "brand": "OrbitGear",
+      "price": 140.49,
+      "stock": 127,
+      "tags": [
+        "seed",
+        "autogen",
+        "accessories",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 068",
+      "description": "Auto-generated seed product #68 for Elasticsearch indexing and search testing",
+      "category": "Storage",
+      "brand": "PixelWare",
+      "price": 142.24,
+      "stock": 134,
+      "tags": [
+        "seed",
+        "autogen",
+        "storage",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 069",
+      "description": "Auto-generated seed product #69 for Elasticsearch indexing and search testing",
+      "category": "Furniture",
+      "brand": "TerraOffice",
+      "price": 143.99,
+      "stock": 141,
+      "tags": [
+        "seed",
+        "autogen",
+        "furniture",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 070",
+      "description": "Auto-generated seed product #70 for Elasticsearch indexing and search testing",
+      "category": "Office",
+      "brand": "CoreLine",
+      "price": 145.74,
+      "stock": 148,
+      "tags": [
+        "seed",
+        "autogen",
+        "office",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 071",
+      "description": "Auto-generated seed product #71 for Elasticsearch indexing and search testing",
+      "category": "Electronics",
+      "brand": "NovaTech",
+      "price": 147.49,
+      "stock": 155,
+      "tags": [
+        "seed",
+        "autogen",
+        "electronics",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 072",
+      "description": "Auto-generated seed product #72 for Elasticsearch indexing and search testing",
+      "category": "Accessories",
+      "brand": "OrbitGear",
+      "price": 149.24,
+      "stock": 162,
+      "tags": [
+        "seed",
+        "autogen",
+        "accessories",
+        "batch-b"
+      ],
+      "is_active": false
+    },
+    {
+      "name": "Bulk Seed Product 073",
+      "description": "Auto-generated seed product #73 for Elasticsearch indexing and search testing",
+      "category": "Storage",
+      "brand": "PixelWare",
+      "price": 150.99,
+      "stock": 169,
+      "tags": [
+        "seed",
+        "autogen",
+        "storage",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 074",
+      "description": "Auto-generated seed product #74 for Elasticsearch indexing and search testing",
+      "category": "Furniture",
+      "brand": "TerraOffice",
+      "price": 152.74,
+      "stock": 176,
+      "tags": [
+        "seed",
+        "autogen",
+        "furniture",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 075",
+      "description": "Auto-generated seed product #75 for Elasticsearch indexing and search testing",
+      "category": "Office",
+      "brand": "CoreLine",
+      "price": 154.49,
+      "stock": 183,
+      "tags": [
+        "seed",
+        "autogen",
+        "office",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 076",
+      "description": "Auto-generated seed product #76 for Elasticsearch indexing and search testing",
+      "category": "Electronics",
+      "brand": "NovaTech",
+      "price": 156.24,
+      "stock": 190,
+      "tags": [
+        "seed",
+        "autogen",
+        "electronics",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 077",
+      "description": "Auto-generated seed product #77 for Elasticsearch indexing and search testing",
+      "category": "Accessories",
+      "brand": "OrbitGear",
+      "price": 157.99,
+      "stock": 197,
+      "tags": [
+        "seed",
+        "autogen",
+        "accessories",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 078",
+      "description": "Auto-generated seed product #78 for Elasticsearch indexing and search testing",
+      "category": "Storage",
+      "brand": "PixelWare",
+      "price": 159.74,
+      "stock": 23,
+      "tags": [
+        "seed",
+        "autogen",
+        "storage",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 079",
+      "description": "Auto-generated seed product #79 for Elasticsearch indexing and search testing",
+      "category": "Furniture",
+      "brand": "TerraOffice",
+      "price": 161.49,
+      "stock": 30,
+      "tags": [
+        "seed",
+        "autogen",
+        "furniture",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 080",
+      "description": "Auto-generated seed product #80 for Elasticsearch indexing and search testing",
+      "category": "Office",
+      "brand": "CoreLine",
+      "price": 163.24,
+      "stock": 37,
+      "tags": [
+        "seed",
+        "autogen",
+        "office",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 081",
+      "description": "Auto-generated seed product #81 for Elasticsearch indexing and search testing",
+      "category": "Electronics",
+      "brand": "NovaTech",
+      "price": 164.99,
+      "stock": 44,
+      "tags": [
+        "seed",
+        "autogen",
+        "electronics",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 082",
+      "description": "Auto-generated seed product #82 for Elasticsearch indexing and search testing",
+      "category": "Accessories",
+      "brand": "OrbitGear",
+      "price": 166.74,
+      "stock": 51,
+      "tags": [
+        "seed",
+        "autogen",
+        "accessories",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 083",
+      "description": "Auto-generated seed product #83 for Elasticsearch indexing and search testing",
+      "category": "Storage",
+      "brand": "PixelWare",
+      "price": 168.49,
+      "stock": 58,
+      "tags": [
+        "seed",
+        "autogen",
+        "storage",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 084",
+      "description": "Auto-generated seed product #84 for Elasticsearch indexing and search testing",
+      "category": "Furniture",
+      "brand": "TerraOffice",
+      "price": 170.24,
+      "stock": 65,
+      "tags": [
+        "seed",
+        "autogen",
+        "furniture",
+        "batch-b"
+      ],
+      "is_active": false
+    },
+    {
+      "name": "Bulk Seed Product 085",
+      "description": "Auto-generated seed product #85 for Elasticsearch indexing and search testing",
+      "category": "Office",
+      "brand": "CoreLine",
+      "price": 171.99,
+      "stock": 72,
+      "tags": [
+        "seed",
+        "autogen",
+        "office",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 086",
+      "description": "Auto-generated seed product #86 for Elasticsearch indexing and search testing",
+      "category": "Electronics",
+      "brand": "NovaTech",
+      "price": 173.74,
+      "stock": 79,
+      "tags": [
+        "seed",
+        "autogen",
+        "electronics",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 087",
+      "description": "Auto-generated seed product #87 for Elasticsearch indexing and search testing",
+      "category": "Accessories",
+      "brand": "OrbitGear",
+      "price": 175.49,
+      "stock": 86,
+      "tags": [
+        "seed",
+        "autogen",
+        "accessories",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 088",
+      "description": "Auto-generated seed product #88 for Elasticsearch indexing and search testing",
+      "category": "Storage",
+      "brand": "PixelWare",
+      "price": 177.24,
+      "stock": 93,
+      "tags": [
+        "seed",
+        "autogen",
+        "storage",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 089",
+      "description": "Auto-generated seed product #89 for Elasticsearch indexing and search testing",
+      "category": "Furniture",
+      "brand": "TerraOffice",
+      "price": 178.99,
+      "stock": 100,
+      "tags": [
+        "seed",
+        "autogen",
+        "furniture",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 090",
+      "description": "Auto-generated seed product #90 for Elasticsearch indexing and search testing",
+      "category": "Office",
+      "brand": "CoreLine",
+      "price": 180.74,
+      "stock": 107,
+      "tags": [
+        "seed",
+        "autogen",
+        "office",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 091",
+      "description": "Auto-generated seed product #91 for Elasticsearch indexing and search testing",
+      "category": "Electronics",
+      "brand": "NovaTech",
+      "price": 182.49,
+      "stock": 114,
+      "tags": [
+        "seed",
+        "autogen",
+        "electronics",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 092",
+      "description": "Auto-generated seed product #92 for Elasticsearch indexing and search testing",
+      "category": "Accessories",
+      "brand": "OrbitGear",
+      "price": 184.24,
+      "stock": 121,
+      "tags": [
+        "seed",
+        "autogen",
+        "accessories",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 093",
+      "description": "Auto-generated seed product #93 for Elasticsearch indexing and search testing",
+      "category": "Storage",
+      "brand": "PixelWare",
+      "price": 185.99,
+      "stock": 128,
+      "tags": [
+        "seed",
+        "autogen",
+        "storage",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 094",
+      "description": "Auto-generated seed product #94 for Elasticsearch indexing and search testing",
+      "category": "Furniture",
+      "brand": "TerraOffice",
+      "price": 187.74,
+      "stock": 135,
+      "tags": [
+        "seed",
+        "autogen",
+        "furniture",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 095",
+      "description": "Auto-generated seed product #95 for Elasticsearch indexing and search testing",
+      "category": "Office",
+      "brand": "CoreLine",
+      "price": 189.49,
+      "stock": 142,
+      "tags": [
+        "seed",
+        "autogen",
+        "office",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 096",
+      "description": "Auto-generated seed product #96 for Elasticsearch indexing and search testing",
+      "category": "Electronics",
+      "brand": "NovaTech",
+      "price": 191.24,
+      "stock": 149,
+      "tags": [
+        "seed",
+        "autogen",
+        "electronics",
+        "batch-b"
+      ],
+      "is_active": false
+    },
+    {
+      "name": "Bulk Seed Product 097",
+      "description": "Auto-generated seed product #97 for Elasticsearch indexing and search testing",
+      "category": "Accessories",
+      "brand": "OrbitGear",
+      "price": 192.99,
+      "stock": 156,
+      "tags": [
+        "seed",
+        "autogen",
+        "accessories",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 098",
+      "description": "Auto-generated seed product #98 for Elasticsearch indexing and search testing",
+      "category": "Storage",
+      "brand": "PixelWare",
+      "price": 194.74,
+      "stock": 163,
+      "tags": [
+        "seed",
+        "autogen",
+        "storage",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 099",
+      "description": "Auto-generated seed product #99 for Elasticsearch indexing and search testing",
+      "category": "Furniture",
+      "brand": "TerraOffice",
+      "price": 196.49,
+      "stock": 170,
+      "tags": [
+        "seed",
+        "autogen",
+        "furniture",
+        "batch-b"
+      ],
+      "is_active": true
+    },
+    {
+      "name": "Bulk Seed Product 100",
+      "description": "Auto-generated seed product #100 for Elasticsearch indexing and search testing",
+      "category": "Office",
+      "brand": "CoreLine",
+      "price": 198.24,
+      "stock": 177,
+      "tags": [
+        "seed",
+        "autogen",
+        "office",
+        "batch-b"
+      ],
       "is_active": true
     }
   ]
