@@ -18,7 +18,24 @@
       <input id="apiBase" type="text" placeholder="http://localhost:8080" />
       <button id="saveApiBase" class="btn">Save</button>
     </div>
+    <div id="authBar" class="auth-bar">
+      <span id="authStatus" class="auth-status unauthenticated">Not logged in</span>
+      <button id="logoutBtn" class="btn btn-sm danger" style="display:none">Logout</button>
+    </div>
   </header>
+
+  <div id="loginOverlay" class="login-overlay">
+    <div class="login-card">
+      <h2>Login</h2>
+      <p class="hint">Enter your credentials to access the API.</p>
+      <form id="loginForm" class="stack">
+        <input id="loginUsername" name="username" required placeholder="Username" autocomplete="username" />
+        <input id="loginPassword" name="password" type="password" required placeholder="Password" autocomplete="current-password" />
+        <button class="btn submit" type="submit">Login</button>
+      </form>
+      <pre id="loginError" class="result" style="display:none"></pre>
+    </div>
+  </div>
 
   <main class="grid">
     <section class="card">

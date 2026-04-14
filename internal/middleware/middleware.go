@@ -1,9 +1,13 @@
 package middleware
 
 import (
+	"errors"
+	"net/http"
+	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
 	"go.uber.org/zap"
 )
@@ -93,4 +97,58 @@ func CORS(allowedOrigins string) gin.HandlerFunc {
 		}
 		c.Next()
 	}
+}
+
+// JWTClaims holds the standard JWT claims plus a custom subject field.
+type JWTClaims struct {
+	Username string `json:"username"`
+	jwt.RegisteredClaims
+}
+
+// JWTAuth validates the Bearer token from the Authorization header.
+// On success, the username claim is stored in the gin context as "jwt_username".
+func JWTAuth(secret string) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		authHeader := c.GetHeader("Authorization")
+		if authHeader == "" {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "authorization header required"})
+			return
+		}
+
+		parts := strings.SplitN(authHeader, " ", 2)
+		if len(parts) != 2 || !strings.EqualFold(parts[0], "Bearer") {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "authorization header format must be: Bearer <token>"})
+			return
+		}
+
+		tokenStr := parts[1]
+		claims := &JWTClaims{}
+
+		token, err := jwt.ParseWithClaims(tokenStr, claims, func(t *jwt.Token) (interface{}, error) {
+			if _, ok := t.Method.(*jwt.SigningMethodHMAC); !ok {
+				return nil, errors.New("unexpected signing method")
+			}
+			return []byte(secret), nil
+		})
+		if err != nil || !token.Valid {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "invalid or expired token"})
+			return
+		}
+
+		c.Set("jwt_username", claims.Username)
+		c.Next()
+	}
+}
+
+// GenerateJWT creates a signed JWT token for the given username.
+func GenerateJWT(secret, username string, expiry time.Duration) (string, error) {
+	claims := JWTClaims{
+		Username: username,
+		RegisteredClaims: jwt.RegisteredClaims{
+			IssuedAt:  jwt.NewNumericDate(time.Now()),
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(expiry)),
+		},
+	}
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	return token.SignedString([]byte(secret))
 }

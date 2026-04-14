@@ -14,6 +14,14 @@ type Config struct {
 	App                AppConfig `mapstructure:"app"`
 	Elasticsearch      ESConfig  `mapstructure:"elasticsearch"`
 	CORSAllowedOrigins string    `mapstructure:"cors_allowed_origins"`
+	JWT                JWTConfig `mapstructure:"jwt"`
+}
+
+type JWTConfig struct {
+	Secret         string        `mapstructure:"secret"`
+	ExpiryDuration time.Duration `mapstructure:"expiry_duration"`
+	AdminUsername  string        `mapstructure:"admin_username"`
+	AdminPassword  string        `mapstructure:"admin_password"`
 }
 
 type AppConfig struct {
@@ -82,6 +90,20 @@ func Load() *Config {
 	}
 	if cfg.App.WriteTimeout <= 0 {
 		cfg.App.WriteTimeout = 10 * time.Second
+	}
+
+	// JWT defaults
+	if cfg.JWT.Secret == "" {
+		cfg.JWT.Secret = "change-me-in-production-min-32-bytes!!"
+	}
+	if cfg.JWT.ExpiryDuration <= 0 {
+		cfg.JWT.ExpiryDuration = 24 * time.Hour
+	}
+	if cfg.JWT.AdminUsername == "" {
+		cfg.JWT.AdminUsername = "admin"
+	}
+	if cfg.JWT.AdminPassword == "" {
+		cfg.JWT.AdminPassword = "admin123"
 	}
 
 	return &cfg

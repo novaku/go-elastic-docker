@@ -14,5 +14,11 @@
     "password": "changeme",
     "ca_cert": "/certs/ca.crt"
   },
-  "cors_allowed_origins": "https://yourdomain.com"
+  "cors_allowed_origins": "https://yourdomain.com",
+  "jwt": {
+    "secret": "REPLACE-WITH-STRONG-SECRET-MIN-32-BYTES",
+    "expiry_duration": "8h",
+    "admin_username": "admin",
+    "admin_password": "REPLACE-WITH-STRONG-PASSWORD"
+  }
 }

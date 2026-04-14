@@ -12,5 +12,11 @@
     "username": "",
     "password": ""
   },
-  "cors_allowed_origins": "*"
+  "cors_allowed_origins": "*",
+  "jwt": {
+    "secret": "local-dev-secret-change-me-min-32bytes",
+    "expiry_duration": "24h",
+    "admin_username": "admin",
+    "admin_password": "admin123"
+  }
 }

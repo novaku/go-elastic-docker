@@ -1,7 +1,11 @@
 const API_BASE_STORAGE = "qa_api_base";
+const JWT_TOKEN_STORAGE = "qa_jwt_token";
 
 const requestLog = document.getElementById("requestLog");
 const apiBaseInput = document.getElementById("apiBase");
+const loginOverlay = document.getElementById("loginOverlay");
+const authStatus = document.getElementById("authStatus");
+const logoutBtn = document.getElementById("logoutBtn");
 
 function getApiBase() {
   const stored = localStorage.getItem(API_BASE_STORAGE);
@@ -11,6 +15,49 @@ function getApiBase() {
 function setApiBase(base) {
   localStorage.setItem(API_BASE_STORAGE, base.trim());
   apiBaseInput.value = base.trim();
+}
+
+function getToken() {
+  return localStorage.getItem(JWT_TOKEN_STORAGE) || "";
+}
+
+function setToken(token) {
+  localStorage.setItem(JWT_TOKEN_STORAGE, token);
+}
+
+function clearToken() {
+  localStorage.removeItem(JWT_TOKEN_STORAGE);
+}
+
+function isTokenValid() {
+  const token = getToken();
+  if (!token) return false;
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    return payload.exp * 1000 > Date.now();
+  } catch {
+    return false;
+  }
+}
+
+function updateAuthUI() {
+  if (isTokenValid()) {
+    try {
+      const payload = JSON.parse(atob(getToken().split(".")[1]));
+      authStatus.textContent = `Logged in as: ${payload.username}`;
+    } catch {
+      authStatus.textContent = "Logged in";
+    }
+    authStatus.className = "auth-status authenticated";
+    logoutBtn.style.display = "";
+    loginOverlay.style.display = "none";
+  } else {
+    clearToken();
+    authStatus.textContent = "Not logged in";
+    authStatus.className = "auth-status unauthenticated";
+    logoutBtn.style.display = "none";
+    loginOverlay.style.display = "flex";
+  }
 }
 
 function parseTags(raw) {
@@ -37,13 +84,25 @@ async function apiCall(path, options = {}) {
   const url = `${getApiBase()}${path}`;
   appendLog(`${method} ${url}`);
 
-  const res = await fetch(url, {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...(options.headers || {}),
-    },
-  });
+  const headers = {
+    "Content-Type": "application/json",
+    ...(options.headers || {}),
+  };
+
+  const token = getToken();
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  const res = await fetch(url, { ...options, headers });
+
+  if (res.status === 401) {
+    clearToken();
+    updateAuthUI();
+    const error = new Error("Unauthorized — please log in again");
+    error.detail = { message: "Session expired or invalid token. Please log in." };
+    throw error;
+  }
 
   const text = await res.text();
   let body;
@@ -78,6 +137,44 @@ function optionalBool(v) {
 
 function bind() {
   apiBaseInput.value = getApiBase();
+  updateAuthUI();
+
+  document.getElementById("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const loginError = document.getElementById("loginError");
+    loginError.style.display = "none";
+    try {
+      const data = await fetch(`${getApiBase()}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: document.getElementById("loginUsername").value,
+          password: document.getElementById("loginPassword").value,
+        }),
+      });
+      const body = await data.json();
+      if (!data.ok) {
+        loginError.textContent = body.message || `HTTP ${data.status}`;
+        loginError.style.display = "";
+        loginError.classList.add("error");
+        return;
+      }
+      setToken(body.token);
+      document.getElementById("loginPassword").value = "";
+      appendLog(`Logged in, token expires in ${body.expires_in}s`);
+      updateAuthUI();
+    } catch (err) {
+      loginError.textContent = err.message;
+      loginError.style.display = "";
+      loginError.classList.add("error");
+    }
+  });
+
+  logoutBtn.addEventListener("click", () => {
+    clearToken();
+    appendLog("Logged out");
+    updateAuthUI();
+  });
 
   document.getElementById("saveApiBase").addEventListener("click", () => {
     setApiBase(apiBaseInput.value || window.location.origin);

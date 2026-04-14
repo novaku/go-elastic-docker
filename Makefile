@@ -58,10 +58,22 @@ vendor: ## Download and vendor all dependencies
 	go mod tidy && go mod vendor
 
 # ── Seed ─────────────────────────────────────────────────────────
+SEED_URL      ?= http://localhost:8080
+SEED_USERNAME ?= admin
+SEED_PASSWORD ?= admin123
+
 seed: ## Bulk-index sample products (requires jq + curl)
 	@echo "Seeding products…"
-	@curl -s -X POST http://localhost:8080/v1/products/bulk \
+	$(eval SEED_TOKEN := $(shell curl -s -X POST $(SEED_URL)/auth/login \
 		-H "Content-Type: application/json" \
+		-d '{"username":"$(SEED_USERNAME)","password":"$(SEED_PASSWORD)"}' \
+		| jq -r '.token'))
+	@if [ -z "$(SEED_TOKEN)" ] || [ "$(SEED_TOKEN)" = "null" ]; then \
+		echo "❌ Login failed — check SEED_USERNAME / SEED_PASSWORD"; exit 1; \
+	fi
+	@curl -s -X POST $(SEED_URL)/v1/products/bulk \
+		-H "Content-Type: application/json" \
+		-H "Authorization: Bearer $(SEED_TOKEN)" \
 		-d @scripts/seed.json | jq .
 
 # ── Production ────────────────────────────────────────────────────

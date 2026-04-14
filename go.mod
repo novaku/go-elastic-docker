@@ -5,6 +5,7 @@ go 1.26.0
 require (
 	github.com/elastic/go-elasticsearch/v8 v8.13.1
 	github.com/gin-gonic/gin v1.10.0
+	github.com/golang-jwt/jwt/v5 v5.3.1
 	github.com/google/uuid v1.6.0
 	github.com/spf13/viper v1.21.0
 	go.uber.org/zap v1.27.0

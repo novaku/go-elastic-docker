@@ -40,6 +40,10 @@ func New(cfg *config.Config, productSvc service.ProductUseCase, healthChecker se
 		c.JSON(http.StatusOK, gin.H{"status": "ready"})
 	})
 
+	// Auth — no JWT required
+	authHandler := handler.NewAuthHandler(&cfg.JWT)
+	r.POST("/auth/login", authHandler.Login)
+
 	qaAssets := gin.WrapH(http.StripPrefix("/qa", ui.Handler()))
 	r.GET("/", func(c *gin.Context) {
 		c.Redirect(http.StatusTemporaryRedirect, "/qa/")
@@ -49,7 +53,8 @@ func New(cfg *config.Config, productSvc service.ProductUseCase, healthChecker se
 	})
 	r.GET("/qa/*filepath", qaAssets)
 
-	v1 := r.Group("/v1")
+	// Protected API routes — require valid JWT
+	v1 := r.Group("/v1", middleware.JWTAuth(cfg.JWT.Secret))
 	handler.NewProductHandler(productSvc, logger).RegisterRoutes(v1)
 
 	return r

@@ -9,10 +9,11 @@ Mendukung pencarian teks penuh, fuzzy matching, filter, paginasi, pengurutan, bu
 
 | Lapisan | Teknologi |
 | ------- | --------- |
-| Bahasa | Go 1.22 |
+| Bahasa | Go 1.26 |
 | Framework HTTP | Gin |
 | Search engine | Elasticsearch 8 |
 | ES client | `go-elasticsearch/v8` |
+| Auth | JWT (HS256) via `golang-jwt/jwt/v5` |
 | Logger | `go.uber.org/zap` |
 | Container | Docker (distroless runtime image) |
 | Orkestrasi | Docker Compose (dev + prod) |
@@ -48,6 +49,7 @@ GET /qa/
 
 Halaman ini mengimplementasikan semua endpoint backend:
 
+- `POST /auth/login`
 - `GET /health`
 - `GET /ready`
 - `GET /v1/products`
@@ -59,7 +61,10 @@ Halaman ini mengimplementasikan semua endpoint backend:
 
 Fitur untuk QA:
 
+- Login form — halaman terkunci di balik overlay login; token JWT disimpan di `localStorage`
 - Input `API Base URL` (default ke origin saat ini, bisa diarahkan ke environment lain)
+- Header `Authorization: Bearer <token>` disisipkan otomatis ke setiap request
+- Logout otomatis saat token kedaluwarsa (401)
 - Form terpisah untuk search, create, get by id, update, delete, dan bulk index
 - Panel hasil response JSON per endpoint
 - Request log ringkas untuk pelacakan langkah uji
@@ -73,6 +78,29 @@ Fitur untuk QA:
 ```http
 GET /health     → { "status": "ok" }
 GET /ready      → { "status": "ready" }
+```
+
+### Autentikasi
+
+Semua endpoint `/v1/*` dilindungi JWT. Dapatkan token terlebih dahulu:
+
+```http
+POST /auth/login
+Content-Type: application/json
+
+{ "username": "admin", "password": "admin123" }
+```
+
+Respons:
+
+```json
+{ "token": "<jwt>", "expires_in": 86400 }
+```
+
+Gunakan token pada setiap request berikutnya:
+
+```http
+Authorization: Bearer <jwt>
 ```
 
 ### Produk
@@ -105,18 +133,27 @@ GET /ready      → { "status": "ready" }
 ### Contoh permintaan
 
 ```bash
+# 1. Login dan simpan token
+TOKEN=$(curl -s -X POST http://localhost:8080/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"username":"admin","password":"admin123"}' | grep -o '"token":"[^"]*' | cut -d'"' -f4)
+
 # Pencarian teks penuh
-curl "http://localhost:8080/v1/products?q=laptop&category=Electronics"
+curl -H "Authorization: Bearer $TOKEN" \
+  "http://localhost:8080/v1/products?q=laptop&category=Electronics"
 
 # Rentang harga + hanya yang aktif
-curl "http://localhost:8080/v1/products?min_price=100&max_price=500&is_active=true"
+curl -H "Authorization: Bearer $TOKEN" \
+  "http://localhost:8080/v1/products?min_price=100&max_price=500&is_active=true"
 
 # Urutkan berdasarkan harga (ascending)
-curl "http://localhost:8080/v1/products?sort_by=price&sort_dir=asc&page=1&page_size=5"
+curl -H "Authorization: Bearer $TOKEN" \
+  "http://localhost:8080/v1/products?sort_by=price&sort_dir=asc&page=1&page_size=5"
 
 # Buat produk baru
 curl -X POST http://localhost:8080/v1/products \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
   -d '{
     "name": "Gaming Mouse",
     "description": "High DPI gaming mouse with RGB",
@@ -131,6 +168,7 @@ curl -X POST http://localhost:8080/v1/products \
 # Bulk index
 curl -X POST http://localhost:8080/v1/products/bulk \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
   -d @scripts/seed.json
 ```
 
@@ -161,6 +199,28 @@ Saat runtime, aplikasi hanya membaca `APP_ENV` untuk menentukan file mana yang d
 APP_ENV=local       # load config/local.json
 APP_ENV=production  # load config/production.json
 ```
+
+### Konfigurasi JWT
+
+Blok `jwt` pada setiap file config:
+
+```json
+"jwt": {
+  "secret": "ganti-dengan-secret-min-32-karakter",
+  "expiry_duration": "24h",
+  "admin_username": "admin",
+  "admin_password": "admin123"
+}
+```
+
+> **Penting untuk produksi:** Gunakan secret acak minimal 32 karakter dan password yang kuat. Jangan commit nilai sensitif ke repository.
+
+| Field | Default (local) | Keterangan |
+| ----- | --------------- | ---------- |
+| `secret` | `local-dev-secret-...` | Kunci penandatanganan HMAC-SHA256 |
+| `expiry_duration` | `24h` | Masa berlaku token (format Go duration) |
+| `admin_username` | `admin` | Username login |
+| `admin_password` | `admin123` | Password login |
 
 ---
 
@@ -196,8 +256,8 @@ docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
 Container API ini bersifat stateless. Skala secara horizontal dengan cara:
 
 1. Deploy image `go-elastic-search` sebagai Deployment/Task
-2. Kelola konfigurasi API via `config/production.json` (port, Elasticsearch, CORS, timeout)
-3. Simpan kredensial sensitif dengan secret manager, lalu inject saat build/release config
+2. Kelola konfigurasi API via `config/production.json` (port, Elasticsearch, CORS, timeout, JWT)
+3. Simpan `jwt.secret`, `jwt.admin_password`, dan kredensial Elasticsearch di secret manager, lalu inject saat build/release config
 
 ---
 
@@ -209,8 +269,8 @@ Container API ini bersifat stateless. Skala secara horizontal dengan cara:
 ├── config/           # Konfigurasi JSON per environment (local/production)
 ├── internal/
 │   ├── elasticsearch/ # Wrapper client ES
-│   ├── handler/       # HTTP handler (Gin)
-│   ├── middleware/    # Logger, CORS, Recovery, RequestID
+│   ├── handler/       # HTTP handler (Gin) — auth.go, product.go
+│   ├── middleware/    # Logger, CORS, Recovery, RequestID, JWTAuth
 │   └── service/       # Logika bisnis + pembangun query ES
 ├── scripts/           # Data awal (seed)
 ├── Dockerfile         # Multi-stage build (distroless runtime)
