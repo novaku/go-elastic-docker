@@ -18,8 +18,14 @@ COPY vendor ./vendor
 COPY . .
 
 # Compute version once
-RUN VERSION=$(git describe --tags --always --dirty 2>/dev/null || echo dev) && \
-    CGO_ENABLED=0 GOOS=linux GOARCH=arm64 \
+# --mount=type=cache persists the Go build cache across Docker builds,
+# turning subsequent builds from ~600s cold compiles into incremental ones.
+ARG TARGETPLATFORM
+RUN --mount=type=cache,target=/root/.cache/go-build \
+    VERSION=$(git describe --tags --always --dirty 2>/dev/null || echo dev) && \
+    GOOS=linux \
+    GOARCH=$(echo $TARGETPLATFORM | cut -d'/' -f2) \
+    CGO_ENABLED=0 \
     go build \
     -mod=vendor \
     -trimpath \
@@ -30,7 +36,7 @@ RUN VERSION=$(git describe --tags --always --dirty 2>/dev/null || echo dev) && \
 # ─────────────────────────────────────────────────
 # Stage 2: Runtime (distroless — minimal attack surface)
 # ─────────────────────────────────────────────────
-FROM gcr.io/distroless/static-debian12:nonroot-arm64
+FROM gcr.io/distroless/static-debian12:nonroot
 
 # Copy CA certs so HTTPS to external ES clusters works
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/

@@ -296,6 +296,69 @@ function bind() {
     }
   });
 
+  // ── Live search (keyup) ────────────────────────────────────────────────
+  const liveQ = document.getElementById("liveQ");
+  const liveResults = document.getElementById("liveResults");
+  const liveCount = document.getElementById("liveCount");
+  const liveSpinner = document.getElementById("liveSpinner");
+  let liveTimer = null;
+
+  function renderProducts(hits) {
+    if (!hits || hits.length === 0) {
+      liveResults.innerHTML = '<p class="no-hits">No products found.</p>';
+      return;
+    }
+    liveResults.innerHTML = hits
+      .map(
+        (p) => `
+        <div class="product-card">
+          <div class="product-name">${escHtml(p.name || "")}</div>
+          <div class="product-meta">
+            <span class="tag cat">${escHtml(p.category || "")}</span>
+            ${p.brand ? `<span class="tag brand">${escHtml(p.brand)}</span>` : ""}
+            <span class="tag price">$${Number(p.price || 0).toFixed(2)}</span>
+            ${(p.tags || []).map((t) => `<span class="tag">${escHtml(t)}</span>`).join("")}
+          </div>
+          <div class="product-desc">${escHtml(p.description || "")}</div>
+          <div class="product-id">ID: ${escHtml(p.id || "")}</div>
+        </div>`
+      )
+      .join("");
+  }
+
+  function escHtml(str) {
+    return String(str).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  }
+
+  async function doLiveSearch(q) {
+    if (!q.trim()) {
+      liveResults.innerHTML = "";
+      liveCount.textContent = "";
+      return;
+    }
+    liveSpinner.style.display = "";
+    try {
+      const params = new URLSearchParams({ q, page_size: 20 });
+      const data = await apiCall(`/v1/products?${params}`);
+      const hits = data.products || data.data || data.hits || data || [];
+      const total = data.total ?? (Array.isArray(hits) ? hits.length : 0);
+      liveCount.textContent = `${total} result${total !== 1 ? "s" : ""} for "${q}"`;
+      renderProducts(Array.isArray(hits) ? hits : []);
+      appendLog(`Live search: q="${q}" → ${total} hits`);
+    } catch (err) {
+      liveResults.innerHTML = `<p class="no-hits error">${escHtml(err.message)}</p>`;
+      liveCount.textContent = "";
+    } finally {
+      liveSpinner.style.display = "none";
+    }
+  }
+
+  liveQ.addEventListener("keyup", () => {
+    clearTimeout(liveTimer);
+    liveTimer = setTimeout(() => doLiveSearch(liveQ.value), 300);
+  });
+  // ────────────────────────────────────────────────────────────────────────
+
   document.getElementById("bulkForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     try {

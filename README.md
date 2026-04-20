@@ -39,6 +39,12 @@ make seed
 open http://localhost:8080/qa/
 ```
 
+Catatan data Elasticsearch (lokal):
+
+- Data persisten disimpan di `data/elasticsearch`
+- `make down` akan menghentikan layanan tanpa menghapus data
+- `make purge-data` akan menghapus seluruh data Elasticsearch lokal
+
 ## QA End-to-End UI
 
 API sudah dilengkapi frontend QA berbasis browser di path berikut:
@@ -180,7 +186,8 @@ curl -X POST http://localhost:8080/v1/products/bulk \
 make dev          # jalankan full stack Docker
 make logs         # pantau log API
 make restart-api  # rebuild + restart hanya API
-make down         # matikan semua layanan
+make down         # matikan layanan tanpa menghapus data Elasticsearch
+make purge-data   # hapus seluruh data Elasticsearch lokal (DANGER)
 make run          # jalankan API secara lokal (ES harus sudah berjalan)
 make test         # jalankan pengujian
 make lint         # jalankan golangci-lint
@@ -272,6 +279,7 @@ Container API ini bersifat stateless. Skala secara horizontal dengan cara:
 │   ├── handler/       # HTTP handler (Gin) — auth.go, product.go
 │   ├── middleware/    # Logger, CORS, Recovery, RequestID, JWTAuth
 │   └── service/       # Logika bisnis + pembangun query ES
+├── data/              # Data persisten Elasticsearch lokal (di-ignore Git)
 ├── scripts/           # Data awal (seed)
 ├── Dockerfile         # Multi-stage build (distroless runtime)
 ├── docker-compose.yml       # Lingkungan pengembangan lokal

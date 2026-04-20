@@ -41,4 +41,4 @@ Thumbs.db
 *.log
 
 # Elasticsearch data
-mnt/
+data/

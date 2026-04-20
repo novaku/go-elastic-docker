@@ -3,7 +3,7 @@
 # Usage:
 #   docker compose up -d          # start all services
 #   docker compose logs -f api    # tail API logs
-#   docker compose down -v        # tear down + remove volumes
+#   docker compose down           # tear down (keep volumes/data)
 # ─────────────────────────────────────────────────────────────────
 
 services:
@@ -16,6 +16,7 @@ services:
       - discovery.type=single-node
       - xpack.security.enabled=false           # dev only — enable in prod
       - xpack.security.http.ssl.enabled=false
+      - cluster.routing.allocation.disk.threshold_enabled=false
       - ES_JAVA_OPTS=-Xms256m -Xmx256m
       - cluster.name=dev-cluster
       - bootstrap.memory_lock=true
@@ -26,7 +27,7 @@ services:
     ports:
       - "9200:9200"
     volumes:
-      - es_data_dev:/usr/share/elasticsearch/data
+      - ./data/elasticsearch:/usr/share/elasticsearch/data
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1"]
       interval: 15s
@@ -54,9 +55,6 @@ services:
       disable: true
     networks:
       - elastic_net
-
-volumes:
-  es_data_dev:
 
 networks:
   elastic_net:

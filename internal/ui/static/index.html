@@ -152,6 +152,17 @@
       <pre id="bulkResult" class="result"></pre>
     </section>
 
+    <section class="card wide live-search-card">
+      <h2>Live Search <span class="live-badge">keyup</span></h2>
+      <p class="hint">Results update automatically as you type — no submit needed.</p>
+      <div class="live-search-bar">
+        <input id="liveQ" type="text" placeholder="Start typing to search products…" autocomplete="off" />
+        <span id="liveSpinner" class="spinner" style="display:none">⏳</span>
+      </div>
+      <div id="liveCount" class="live-count"></div>
+      <div id="liveResults" class="live-results"></div>
+    </section>
+
     <section class="card wide">
       <h2>Request Log</h2>
       <pre id="requestLog" class="result log"></pre>

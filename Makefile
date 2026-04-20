@@ -1,15 +1,23 @@
-.PHONY: help dev down build run test seed logs log vendor
+
+.PHONY: help dev down purge-data build run test seed logs log vendor \
+	k8s-up k8s-down k8s-logs k8s-port-forward k8s-status k8s-image
 
 # ── Defaults ─────────────────────────────────────────────────────
 APP_NAME  := go-elastic-search
-API_IMAGE := yourorg/$(APP_NAME)
+API_IMAGE := novaku/$(APP_NAME)
 VERSION   := $(shell git describe --tags --always --dirty 2>/dev/null || echo dev)
 
+KUBECTL        ?= kubectl
+K8S_NAMESPACE  ?= go-elastic
+K8S_MANIFESTS  ?= k8s
+K8S_API_IMAGE  ?= go-elastic-docker-api:latest
+
 help: ## Show this help
-	@awk 'BEGIN{FS=":.*##"} /^[a-zA-Z_-]+:.*##/{printf "  \033[36m%-18s\033[0m %s\n",$$1,$$2}' $(MAKEFILE_LIST)
+	@awk 'BEGIN{FS=":.*##"} /^[a-zA-Z0-9_-]+:.*##/{printf "  \033[36m%-18s\033[0m %s\n",$$1,$$2}' $(MAKEFILE_LIST)
 
 # ── Local dev (Docker Compose) ────────────────────────────────────
 dev: ## Start full local stack (ES + API)
+	@mkdir -p data/elasticsearch
 	docker compose up --build -d
 	@printf "\n⏳ Waiting for API to be ready"
 	@until curl -fsS http://localhost:8080/ready >/dev/null 2>&1; do \
@@ -22,8 +30,13 @@ dev: ## Start full local stack (ES + API)
 	@echo "   QA UI   → http://localhost:8080/qa/"
 	@open http://localhost:8080/qa/ >/dev/null 2>&1 || true
 
-down: ## Stop and remove all containers + volumes
+down: ## Stop and remove containers (keep volumes/data)
+	docker compose down
+
+purge-data: ## Stop stack and remove all containers + volumes (DANGER: deletes ES data)
 	docker compose down -v
+	rm -rf data/elasticsearch
+	mkdir -p data/elasticsearch
 
 logs log: ## Tail API logs
 	docker compose logs -f api
@@ -82,3 +95,33 @@ prod-up: ## Start production stack
 
 prod-down: ## Stop production stack
 	docker compose -f docker-compose.yml -f docker-compose.prod.yml down
+
+# ── Kubernetes (local cluster) ───────────────────────────────────
+k8s-image: ## Build API image for local Kubernetes runtime
+	docker build -t $(K8S_API_IMAGE) .
+
+k8s-up: ## Deploy Elasticsearch + API to Kubernetes
+	@docker image inspect $(K8S_API_IMAGE) >/dev/null 2>&1 || (echo "❌ Image $(K8S_API_IMAGE) not found. Build first with: make k8s-image K8S_API_IMAGE=$(K8S_API_IMAGE)" && exit 1)
+	@$(KUBECTL) get namespace $(K8S_NAMESPACE) >/dev/null 2>&1 || $(KUBECTL) create namespace $(K8S_NAMESPACE)
+	$(KUBECTL) apply -n $(K8S_NAMESPACE) -f $(K8S_MANIFESTS)/elasticsearch.yaml
+	$(KUBECTL) apply -n $(K8S_NAMESPACE) -f $(K8S_MANIFESTS)/api.yaml
+	$(KUBECTL) set image deployment/api api=$(K8S_API_IMAGE) -n $(K8S_NAMESPACE)
+	$(KUBECTL) rollout restart deployment/api -n $(K8S_NAMESPACE)
+	$(KUBECTL) rollout status deployment/elasticsearch -n $(K8S_NAMESPACE) --timeout=180s
+	$(KUBECTL) rollout status deployment/api -n $(K8S_NAMESPACE) --timeout=180s
+	@echo ""
+	@echo "✅ Kubernetes stack running in namespace: $(K8S_NAMESPACE)"
+	@echo "   Run: make k8s-port-forward"
+
+k8s-down: ## Remove Kubernetes resources
+	-$(KUBECTL) delete -n $(K8S_NAMESPACE) -f $(K8S_MANIFESTS)/api.yaml --ignore-not-found
+	-$(KUBECTL) delete -n $(K8S_NAMESPACE) -f $(K8S_MANIFESTS)/elasticsearch.yaml --ignore-not-found
+
+k8s-status: ## Show Kubernetes pods/services status
+	$(KUBECTL) get all -n $(K8S_NAMESPACE)
+
+k8s-logs: ## Tail API logs from Kubernetes
+	$(KUBECTL) logs -n $(K8S_NAMESPACE) deploy/api -f
+
+k8s-port-forward: ## Expose API on localhost:8080
+	$(KUBECTL) port-forward -n $(K8S_NAMESPACE) service/api 8080:8080

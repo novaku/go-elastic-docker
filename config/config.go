@@ -86,24 +86,24 @@ func Load() *Config {
 	}
 
 	if cfg.App.ReadTimeout <= 0 {
-		cfg.App.ReadTimeout = 10 * time.Second
+		cfg.App.ReadTimeout = DefaultReadTimeout
 	}
 	if cfg.App.WriteTimeout <= 0 {
-		cfg.App.WriteTimeout = 10 * time.Second
+		cfg.App.WriteTimeout = DefaultWriteTimeout
 	}
 
 	// JWT defaults
 	if cfg.JWT.Secret == "" {
-		cfg.JWT.Secret = "change-me-in-production-min-32-bytes!!"
+		cfg.JWT.Secret = DefaultJWTSecret
 	}
 	if cfg.JWT.ExpiryDuration <= 0 {
-		cfg.JWT.ExpiryDuration = 24 * time.Hour
+		cfg.JWT.ExpiryDuration = DefaultJWTExpiryDuration
 	}
 	if cfg.JWT.AdminUsername == "" {
-		cfg.JWT.AdminUsername = "admin"
+		cfg.JWT.AdminUsername = DefaultAdminUsername
 	}
 	if cfg.JWT.AdminPassword == "" {
-		cfg.JWT.AdminPassword = "admin123"
+		cfg.JWT.AdminPassword = DefaultAdminPassword
 	}
 
 	return &cfg
