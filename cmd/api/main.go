@@ -10,11 +10,22 @@ import (
 	"time"
 
 	"github.com/novaku/go-elastic-search/config"
+	_ "github.com/novaku/go-elastic-search/docs"
 	esinternal "github.com/novaku/go-elastic-search/internal/elasticsearch"
 	"github.com/novaku/go-elastic-search/internal/router"
 	"github.com/novaku/go-elastic-search/internal/service"
 	"go.uber.org/zap"
 )
+
+// @title go-elastic-search API
+// @version 1.0
+// @description REST API built with Go, Gin, and Elasticsearch.
+// @BasePath /
+// @schemes http https
+// @securityDefinitions.apikey BearerAuth
+// @in header
+// @name Authorization
+// @description Provide token with Bearer prefix. Example: Bearer <token>
 
 func main() {
 	// ── Config ───────────────────────────────────────

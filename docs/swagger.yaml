@@ -1,0 +1,457 @@
+basePath: /
+definitions:
+  handler.BulkIndexResponse:
+    properties:
+      indexed:
+        type: integer
+    type: object
+  handler.ErrorResponse:
+    properties:
+      error:
+        type: string
+      message:
+        type: string
+    type: object
+  handler.LoginResponse:
+    properties:
+      expires_in:
+        type: integer
+      token:
+        type: string
+    type: object
+  handler.loginRequest:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  router.healthUnhealthyResponse:
+    properties:
+      elasticsearch:
+        type: string
+      status:
+        type: string
+    type: object
+  router.statusResponse:
+    properties:
+      status:
+        type: string
+    type: object
+  service.BulkIndexRequest:
+    properties:
+      products:
+        items:
+          $ref: '#/definitions/service.CreateProductRequest'
+        minItems: 1
+        type: array
+    required:
+    - products
+    type: object
+  service.CreateProductRequest:
+    properties:
+      brand:
+        type: string
+      category:
+        type: string
+      description:
+        type: string
+      is_active:
+        type: boolean
+      name:
+        type: string
+      price:
+        type: number
+      stock:
+        minimum: 0
+        type: integer
+      tags:
+        items:
+          type: string
+        type: array
+    required:
+    - category
+    - name
+    - price
+    type: object
+  service.Product:
+    properties:
+      brand:
+        type: string
+      category:
+        type: string
+      created_at:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      is_active:
+        type: boolean
+      name:
+        type: string
+      price:
+        type: number
+      stock:
+        type: integer
+      tags:
+        items:
+          type: string
+        type: array
+      updated_at:
+        type: string
+    type: object
+  service.SearchResponse:
+    properties:
+      page:
+        type: integer
+      page_size:
+        type: integer
+      products:
+        items:
+          $ref: '#/definitions/service.Product'
+        type: array
+      took_ms:
+        type: integer
+      total:
+        type: integer
+    type: object
+  service.UpdateProductRequest:
+    properties:
+      brand:
+        type: string
+      category:
+        type: string
+      description:
+        type: string
+      is_active:
+        type: boolean
+      name:
+        type: string
+      price:
+        type: number
+      stock:
+        type: integer
+      tags:
+        items:
+          type: string
+        type: array
+    type: object
+info:
+  contact: {}
+  description: REST API built with Go, Gin, and Elasticsearch.
+  title: go-elastic-search API
+  version: "1.0"
+paths:
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Validate credentials and return a signed JWT token.
+      parameters:
+      - description: Credentials
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/handler.loginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.LoginResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Login
+      tags:
+      - auth
+  /health:
+    get:
+      description: Check API and Elasticsearch health.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/router.statusResponse'
+        "503":
+          description: Service Unavailable
+          schema:
+            $ref: '#/definitions/router.healthUnhealthyResponse'
+      summary: Health check
+      tags:
+      - system
+  /ready:
+    get:
+      description: Check if API process is ready to serve requests.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/router.statusResponse'
+      summary: Readiness check
+      tags:
+      - system
+  /v1/products:
+    get:
+      consumes:
+      - application/json
+      description: Search products with full-text query and filters.
+      parameters:
+      - description: Full text query
+        in: query
+        name: q
+        type: string
+      - description: Category filter
+        in: query
+        name: category
+        type: string
+      - description: Brand filter
+        in: query
+        name: brand
+        type: string
+      - description: Minimum price
+        in: query
+        name: min_price
+        type: number
+      - description: Maximum price
+        in: query
+        name: max_price
+        type: number
+      - collectionFormat: multi
+        description: Tags filter
+        in: query
+        items:
+          type: string
+        name: tags
+        type: array
+      - description: Active status filter
+        in: query
+        name: is_active
+        type: boolean
+      - description: Sort field
+        in: query
+        name: sort_by
+        type: string
+      - description: Sort direction (asc|desc)
+        in: query
+        name: sort_dir
+        type: string
+      - description: Page number
+        in: query
+        name: page
+        type: integer
+      - description: Page size
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.SearchResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Search products
+      tags:
+      - products
+    post:
+      consumes:
+      - application/json
+      description: Create a new product document.
+      parameters:
+      - description: Create product payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/service.CreateProductRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/service.Product'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Create product
+      tags:
+      - products
+  /v1/products/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete one product by ID.
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete product
+      tags:
+      - products
+    get:
+      consumes:
+      - application/json
+      description: Retrieve one product by document ID.
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.Product'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get product by ID
+      tags:
+      - products
+    put:
+      consumes:
+      - application/json
+      description: Partially update a product by ID.
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/service.UpdateProductRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.Product'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Update product
+      tags:
+      - products
+  /v1/products/bulk:
+    post:
+      consumes:
+      - application/json
+      description: Create multiple products in one request.
+      parameters:
+      - description: Bulk index payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/service.BulkIndexRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.BulkIndexResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Bulk index products
+      tags:
+      - products
+schemes:
+- http
+- https
+securityDefinitions:
+  BearerAuth:
+    description: 'Provide token with Bearer prefix. Example: Bearer <token>'
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

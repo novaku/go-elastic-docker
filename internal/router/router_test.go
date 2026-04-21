@@ -82,3 +82,16 @@ func TestRouter_Health_Unhealthy(t *testing.T) {
 		t.Fatalf("unexpected elasticsearch message: %q", body["elasticsearch"])
 	}
 }
+
+func TestRouter_DocsIndex(t *testing.T) {
+	t.Parallel()
+
+	r := New(&config.Config{CORSAllowedOrigins: "*"}, stubUseCase{}, stubHealthChecker{}, zap.NewNop())
+	req := httptest.NewRequest(http.MethodGet, "/docs/index.html", nil)
+	rec := httptest.NewRecorder()
+	r.ServeHTTP(rec, req)
+
+	if rec.Code != http.StatusOK {
+		t.Fatalf("expected status %d, got %d", http.StatusOK, rec.Code)
+	}
+}

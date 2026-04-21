@@ -1,5 +1,5 @@
 
-.PHONY: help dev down purge-data build run test seed logs log vendor \
+.PHONY: help dev down purge-data build run test seed logs log vendor swagger \
 	k8s-up k8s-down k8s-logs k8s-port-forward k8s-status k8s-image
 
 # ── Defaults ─────────────────────────────────────────────────────
@@ -16,7 +16,7 @@ help: ## Show this help
 	@awk 'BEGIN{FS=":.*##"} /^[a-zA-Z0-9_-]+:.*##/{printf "  \033[36m%-18s\033[0m %s\n",$$1,$$2}' $(MAKEFILE_LIST)
 
 # ── Local dev (Docker Compose) ────────────────────────────────────
-dev: ## Start full local stack (ES + API)
+dev: swagger ## Start full local stack (ES + API)
 	@mkdir -p data/elasticsearch
 	docker compose up --build -d
 	@printf "\n⏳ Waiting for API to be ready"
@@ -28,7 +28,9 @@ dev: ## Start full local stack (ES + API)
 	@echo "\n✅ Stack running:"
 	@echo "   API     → http://localhost:8080"
 	@echo "   QA UI   → http://localhost:8080/qa/"
+	@echo "   API Docs→ http://localhost:8080/docs/index.html"
 	@open http://localhost:8080/qa/ >/dev/null 2>&1 || true
+	@open http://localhost:8080/docs/index.html >/dev/null 2>&1 || true
 
 down: ## Stop and remove containers (keep volumes/data)
 	docker compose down
@@ -69,6 +71,9 @@ lint: ## Run golangci-lint
 
 vendor: ## Download and vendor all dependencies
 	go mod tidy && go mod vendor
+
+swagger: ## Generate Swagger/OpenAPI docs
+	go run github.com/swaggo/swag/cmd/swag@v1.16.4 init -g main.go -d cmd/api,internal/handler,internal/router,internal/service,config -o docs --parseInternal
 
 # ── Seed ─────────────────────────────────────────────────────────
 SEED_URL      ?= http://localhost:8080

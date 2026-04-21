@@ -75,6 +75,22 @@ Fitur untuk QA:
 - Panel hasil response JSON per endpoint
 - Request log ringkas untuk pelacakan langkah uji
 
+## Swagger API Docs
+
+Dokumentasi OpenAPI tersedia di endpoint berikut setelah aplikasi berjalan:
+
+```text
+GET /docs/index.html
+```
+
+Regenerasi dokumentasi otomatis dari anotasi handler:
+
+```bash
+make swagger
+```
+
+Perintah di atas akan menghasilkan artefak OpenAPI ke folder `docs/`.
+
 ---
 
 ## Referensi API

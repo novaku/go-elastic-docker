@@ -22,7 +22,28 @@ type loginRequest struct {
 	Password string `json:"password" binding:"required"`
 }
 
+type LoginResponse struct {
+	Token     string `json:"token"`
+	ExpiresIn int    `json:"expires_in"`
+}
+
+type ErrorResponse struct {
+	Message string `json:"message"`
+	Error   string `json:"error,omitempty"`
+}
+
 // Login validates credentials and returns a signed JWT token.
+// @Summary Login
+// @Description Validate credentials and return a signed JWT token.
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Param request body loginRequest true "Credentials"
+// @Success 200 {object} LoginResponse
+// @Failure 400 {object} ErrorResponse
+// @Failure 401 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /auth/login [post]
 func (h *AuthHandler) Login(c *gin.Context) {
 	var req loginRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
