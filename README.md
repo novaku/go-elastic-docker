@@ -20,6 +20,39 @@ Mendukung pencarian teks penuh, fuzzy matching, filter, paginasi, pengurutan, bu
 
 ---
 
+## Pre-requisite
+
+Pastikan tools berikut sudah terpasang sebelum menjalankan project:
+
+| Kebutuhan | Versi minimum | Dipakai untuk |
+| --------- | ------------- | ------------- |
+| Docker Engine | 24+ | Menjalankan container API + Elasticsearch |
+| Docker Compose (plugin `docker compose`) | 2.20+ | Orkestrasi stack lokal/produksi |
+| GNU Make | 4+ | Menjalankan target automasi (`make dev`, `make seed`, dll) |
+| curl | terbaru | Health check dan request API |
+| jq | 1.6+ | Parsing JSON pada target `make seed` |
+| Go | 1.26 | Menjalankan API tanpa Docker (`make run`) dan test |
+
+Kebutuhan tambahan (opsional):
+
+- `golangci-lint` untuk `make lint`
+- `kubectl` untuk target Kubernetes (`make k8s-*`)
+
+Validasi cepat instalasi:
+
+```bash
+docker --version
+docker compose version
+make --version
+curl --version
+jq --version
+go version
+```
+
+Jika semua perintah di atas tersedia, lanjut ke langkah [Mulai Cepat (lokal)](#mulai-cepat-lokal).
+
+---
+
 ## Mulai Cepat (lokal)
 
 ```bash
